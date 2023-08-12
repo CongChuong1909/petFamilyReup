@@ -1,8 +1,5 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import PanoramaFishEyeIcon from "@mui/icons-material/PanoramaFishEye";
-import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 
 import WeatherLoading from "../Loading/WeatherLoading";
 import useDebounce from "~/Hooks/useDebounce";
@@ -52,7 +49,7 @@ const Weather = () => {
         queryKey: ["weather", cityName],
         queryFn: async () => {
             const res = await axios.get(
-                `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=d297be27f6f5541f0abd907338ca3f0a&units=metric`,
+                `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=d297be27f6f5541f0abd907338ca3f0a&units=metric`,
             );
             // console.log(res);
             return res.data;
