@@ -39,7 +39,6 @@ const brightColors = [
       setShowMore(!showMore);
     };
     const { postItem } = props;
-    console.log(postItem);
     const imagesQuery = useQuery({
       queryKey: ["images", postItem.idposts],
       queryFn: async () => {
@@ -69,7 +68,6 @@ const brightColors = [
 
 
     const mutationHidden = useMutation((idpost)=>{
-        console.log(idpost);
         return makeRequest.put("/posts/hidden", idpost)
     },
     {

@@ -22,6 +22,7 @@ const uploadImages = async (imageFiles) => {
         },
       }
     );
+    console.log(response);
 
     const { urls } = response.data;
     console.log('Uploaded image URLs:', urls);

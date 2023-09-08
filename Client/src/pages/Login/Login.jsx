@@ -12,6 +12,7 @@ function Login(props) {
         email: "",
         password:""
     })
+    const [loading, setLoading] = useState(false);
 
     
 
@@ -21,6 +22,7 @@ function Login(props) {
 
     const handleLogin = async(e)=>{
         e.preventDefault();
+        setLoading(true);
         dispatch(loginStart());
        try {
             const res = await makeRequestAuth.post("auth/login", login,{
@@ -47,9 +49,12 @@ function Login(props) {
             setErr(error)
             dispatch(loginFailure());
        }
+       finally {
+        setLoading(false);
+      }
     }
     const google = () =>{
-        window.open("http://localhost:4000/google","_self");
+        window.open("https://api.petfamily.click/google","_self");
     }
 
 
@@ -120,6 +125,7 @@ function Login(props) {
                                     onChange={handleChangeValue}
                                 />
                                 <Link to={'/input-gmail'}><p className="text-[#3539ff] underline">Quên mật khẩu?</p></Link>
+                                {loading && <div className="flex items-center"><img width={40} src="../../../public/loading login.gif" alt="" /></div>}
                                 <button onClick={handleLogin} className="mt-5 tracking-wide font-semibold bg-[#6366f1] text-[#eee] w-full py-4 rounded-lg hover:bg-[#4338ca] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"

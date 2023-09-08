@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { makeRequest } from "~/axios";
 
 function OnlineItem({item}) {
-    console.log(item);
     const { currentUser } = useSelector((state) => state.user);
   const userFetch = useQuery({
     queryKey: ["users", item.userId],

@@ -44,7 +44,7 @@ function App() {
   const socket = useRef(null);
 
 useEffect(() => {
-  socket.current = io("http://localhost:4000");
+  socket.current = io("https://api.petfamily.click");
   socket.current.on("connect_error", (error) => {
     console.log(error);
   });

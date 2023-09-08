@@ -11,6 +11,7 @@ function Register(props) {
         name: "",
       });
     const [err, setErr] = useState(null);
+    const [viewWait, setViewWait] = useState(false);
     const navigate = useNavigate();
 
       const handleChange = (e) => {
@@ -32,8 +33,9 @@ function Register(props) {
           console.log(res);
           if(res.status === 200)
             {
+                setViewWait(true);
                 localStorage.removeItem('userPetFamily')
-                toast("Đăng ký thành công, kiểm tra email của bạn để nhận mã xác nhận!")
+                toast("Đăng ký thành công, kiểm tra email của bạn để nhận mã xác nhận, quá trình này có thể tốn nhiều thời gian mong bạn thông cảm!")
                 // navigate("/login")
             }
         } catch (err) {
@@ -43,6 +45,7 @@ function Register(props) {
         }
 
       };
+    //   console.log(viewWait);
     //   const isValidCookieName = (name) =>{
     //     if (!name || typeof name !== 'string') return false;
     //     if (name.length > 4096)return false;
@@ -55,7 +58,7 @@ function Register(props) {
             <div className="min-h-screen bg-[#e5e7eb] text-[#111827] flex  justify-center">
                  <ToastContainer
                     position="top-center"
-                    autoClose={4000}
+                    autoClose={7000}
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick
@@ -80,49 +83,59 @@ function Register(props) {
                                 </div>
                                 <div className="mx-auto max-w-xs">
                                     <form onSubmit={handleSubmit} action="">
-                                        <input
-                                            className="w-full px-8 py-4 rounded-lg font-medium bg-[#e5e7eb] border border-[#d1d3d7] placeholder-[#6b7280] text-sm focus:outline-none focus:border-[#9ca3af] focus:bg-[#fff]"
-                                            type="name"
-                                            placeholder="Full Name"
-                                            name='name'
-                                            value={inputs.name}
-                                            onChange={handleChange}
-                                        />
-                                        <input
-                                            className="w-full px-8 py-4 mt-5 rounded-lg font-medium bg-[#e5e7eb] border border-[#d1d3d7] placeholder-[#6b7280] text-sm focus:outline-none focus:border-[#9ca3af] focus:bg-[#fff]"
-                                            type="email"
-                                            placeholder="Email"
-                                            name='email'
-                                            value={inputs.email}
-                                            onChange={handleChange}
-                                        />
-                                        <input
-                                            className="w-full px-8 py-4 rounded-lg font-medium bg-[#e5e7eb] border border-[#d1d3d7] placeholder-[#6b7280] text-sm focus:outline-none focus:border-[#9ca3af] focus:bg-[#fff] mt-5"
-                                            type="password"
-                                            name='password'
-                                            placeholder="Password"
-                                            value={inputs.password}
-                                            onChange={handleChange}
-                                        />
-                                        <button type='submit' className="mt-5 tracking-wide font-semibold bg-[#6366f1] text-[#e5e7eb] w-full py-4 rounded-lg hover:bg-[#4338ca] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
-                                            <svg
-                                                className="w-6 h-6 -ml-2"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            >
-                                                <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-                                                <circle
-                                                    cx="8.5"
-                                                    cy="7"
-                                                    r="4"
-                                                ></circle>
-                                                <path d="M20 8v6M23 11h-6"></path>
-                                            </svg>
-                                            <span className="ml-3">Sign up</span>
-                                        </button>
+                                        {
+                                            !viewWait ? 
+                                            <>
+                                                <input
+                                                    className="w-full px-8 py-4 rounded-lg font-medium bg-[#e5e7eb] border border-[#d1d3d7] placeholder-[#6b7280] text-sm focus:outline-none focus:border-[#9ca3af] focus:bg-[#fff]"
+                                                    type="name"
+                                                    placeholder="Full Name"
+                                                    name='name'
+                                                    value={inputs.name}
+                                                    onChange={handleChange}
+                                                />
+                                                <input
+                                                    className="w-full px-8 py-4 mt-5 rounded-lg font-medium bg-[#e5e7eb] border border-[#d1d3d7] placeholder-[#6b7280] text-sm focus:outline-none focus:border-[#9ca3af] focus:bg-[#fff]"
+                                                    type="email"
+                                                    placeholder="Email"
+                                                    name='email'
+                                                    value={inputs.email}
+                                                    onChange={handleChange}
+                                                />
+                                                <input
+                                                    className="w-full px-8 py-4 rounded-lg font-medium bg-[#e5e7eb] border border-[#d1d3d7] placeholder-[#6b7280] text-sm focus:outline-none focus:border-[#9ca3af] focus:bg-[#fff] mt-5"
+                                                    type="password"
+                                                    name='password'
+                                                    placeholder="Password"
+                                                    value={inputs.password}
+                                                    onChange={handleChange}
+                                                />
+                                                <button type='submit' className="mt-5 tracking-wide font-semibold bg-[#6366f1] text-[#e5e7eb] w-full py-4 rounded-lg hover:bg-[#4338ca] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                                                    <svg
+                                                        className="w-6 h-6 -ml-2"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeWidth="2"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    >
+                                                        <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                                                        <circle
+                                                            cx="8.5"
+                                                            cy="7"
+                                                            r="4"
+                                                        ></circle>
+                                                        <path d="M20 8v6M23 11h-6"></path>
+                                                    </svg>
+                                                    <span className="ml-3">Sign up</span>
+                                                </button>
+                                            </>:
+                                            <div className='flex flex-col items-center'>
+                                                <img src="https://static.vecteezy.com/system/resources/previews/004/968/630/original/send-message-newsletters-email-subscription-pop-up-permission-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg" width={280} alt="" />
+                                                <p className='font-semibold'>Kiểm tra hộp thư của bạn, quá trình này có thể mất tới 1 phút</p>
+                                            </div>
+                                        }
+                                        
                                         {err && <span className="text-[rgb(243,41,41)]">{err}</span>}
                                     </form>
                                     <div className="mt-6 text-xs text-[#4b5563] text-center">

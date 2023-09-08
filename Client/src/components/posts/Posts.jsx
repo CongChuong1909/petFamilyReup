@@ -7,12 +7,22 @@ import { makeRequest } from "~/axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingPost from "../Loading/LoadingPost";
 import { useInfiniteQuery } from "@tanstack/react-query"
+import { useSelector } from "react-redux";
 
 function Posts(props) {
   const [showCreatePost, setShowCreatePost] = useState(false);
-  const [page, setPage] = useState(1);
-  const [posts, setPosts] = useState([]);
-
+  const { list } = useSelector((state) => state.relationship);
+  const { currentUser } = useSelector((state) => state.user);
+  const [isEmpty, setisEmpty] = useState(false);
+  useEffect(() => {
+    if (Array.isArray(list)) {
+      const foundUser = list.find((item) => item.user_follower === currentUser.idUser);
+      if(foundUser === undefined)
+      {
+        setisEmpty(true);
+      }
+    } 
+  }, [list]);
   const fetchPosts = async (page) => {
     const response = await makeRequest.get(`/posts/getAllPublicPagination?page=${page}`)
     return response.data;
@@ -28,7 +38,6 @@ function Posts(props) {
     }
   )
 
-  isSuccess && console.log(data);
   useEffect(() => {
     let fetching = false;
     const handleScroll = async (e) => {
@@ -48,12 +57,22 @@ function Posts(props) {
     <div>
       <PostCreate handleClosePostCreate={() => setShowCreatePost(false)} show={showCreatePost} />
       <PostTool onOpenCreatePost={() => setShowCreatePost(true)} />
+      {
+        isEmpty &&
+        <div className="flex flex-col items-center item bg-[#fff]">
+            <p className="font-semibold text-[18px]">👋 Chào người mới nha</p>
+            <p>Follow mọi người để hiển thị bài viết nào!</p>
+        </div>
+      }
     {   
         isSuccess && data.pages.map((page, index) => 
-            page.map((post) => (
-                <Post  key= {post.idposts} postItem = {post} />
-            ))
-          )
+            {
+                    return page.map((post) => (
+                        <Post  key= {post.idposts} postItem = {post} />
+                    ))
+                    
+            }
+        )
     }
     </div>
 

@@ -31,14 +31,16 @@ export default function Account(props) {
     setMinus(false)
   };
   const handleLogout = async()=>{
-    setAnchorEl(null);
-    setMinus(false);
-    const res = await makeRequestAuth.post("auth/logout",{
-        withCredentials:true,
-        credentials: 'include'
-    });
-    localStorage.removeItem('userPetFamily');
-    navigate('/login');
+      setAnchorEl(null);
+      setMinus(false);
+      localStorage.removeItem('userPetFamily');
+      const res = await makeRequestAuth.post("auth/logout",{
+          withCredentials:true,
+          credentials: 'include'
+        });
+        console.log(res);
+        navigate('/login');
+    
   }
   return (
     <React.Fragment>
