@@ -8,7 +8,7 @@ export const db = mysql.createConnection({
     password:'1992001zZ',
     database:'dbpetfamily',
     charset: 'utf8mb4',
-    connectTimeout: 20000
+    connectTimeout: 20000,
 })
 
 db.connect((err)=>{
